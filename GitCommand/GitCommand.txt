@@ -1,0 +1,116 @@
+List of Git Command
+9 July 2025
+
+
+CH 1 Setup
+
+1. curl -sS https://webi.sh/golang | sh : Instaling Go from Webi
+2. go install github.com/bootdotdev/bootdev@latest : Instaling bootdev using go
+3. bootdev login : login to your bootdev account
+4. bootdev run <id> : run the commands and show you the results. It's to be used for debugging, but it won't tell you whether or not you've passed the tests explicitly.
+5. bootdev run <id> -s : run the commands and give you pass/fail feedback. It will also mark the lesson as complete on the website.
+6. brew install git : Instaling git using brew
+7. git --version : check the version of git & checking if git is already installed
+8. man git : manual for git
+9. git config --add --global user.name "github_username_here" : set git username , and add .gitconfig to home dir if there arent any
+10. git config --add --global user.email "email@example.com" : set git  user email, and add .gitconfig to home dir if there arent any
+11. git config --get user.name : shows git username
+12. git config --get user.name : shows git user email
+13. git config --global init.defaultBranch master : set a default branch to master
+
+
+CH 2 Respository
+
+1. [Inside the directory that will be repository] git init : create a new Git repository inside current directory
+2. git status : shows you the current state of repo. It will tell which files are untracked, staged, and committed.
+3. git add <path-to-file | pattern> : add it to the "index" before committing, | here = "or" , pilih file path / semua file yang mengandung {pattern} {ex : git add *.md}
+4. git commit -m "your message here" : commit all of staged file with message, -m argument is a shorthand for --message.
+5. git log : shows a history of the commits in a repository, if its too long it will turn into interactive page, move = [arrow key], q = exit
+6. git --no-pager log -n 10 : shows a history of the commits in a repository without the interactive page and only 10 commit history
+
+
+CH 3 Internals
+
+1.  xxd {file} : print the contents of the file in hexadecimal format
+2. git cat-file -p <commit hash> : see the contents of a commit by its hash
+3. git log -1  : get the hash of your last commit
+4. git cat-file -p <tree hash> : see the contents of a tree like blob files by its  tree hash
+5. git cat-file -p <blob hash> : see the contents of a blob like its  blob hash
+6. git commit --ammend : change the commit massage or edit enything else on the latest commit
+7. git add . : add all of the changes in the current directory to stage
+
+
+CH 4 Config
+
+1. git config --add webflyx.ceo "ThePrimeagen" : Adding git config localy, by removing --global argument
+2. git config --list --local : show list of local git config
+3. cat .git/config : show git config local 
+4. git config --get <key> : getting a single value of config,  keys are in the format <section>.<keyname>
+5. git config --unset <key> : --unset flag is used to remove a configuration value ,  keys are in the format <section>.<keyname>
+6. git config --unset-all example.key : purge all instances of a key from your configuratio, only works with a single instance of a key.
+7. git config --remove-section section : remove an entire section from your Git configuration
+
+
+CH 5 Branching
+
+1. git branch : Check which branch you're currently on
+2. git config --global init.defaultBranch main : set a default branch to main
+3. git branch -m {oldname} {newname} : changing the name of the branch from oldname to newname
+4. git branch my_new_branch : create a new branch with current commit you are on as the branch base
+5. git switch -c my_new_branch : switch branches, and the -c flag tells Git to create a new branch if it doesn't already exist. with current commit you are on as the branch base {subtitu for branch}
+6. git checkout branch_name : other and older way to switch branch
+7. git log --decorate=full : show the full ref name of a branch
+8. git log --decorate=short : default
+9. git log --decorate=no : branch names are no longer shown at all
+10. git log --oneline : show compact view of the log 
+11. cat .git/refs/heads/{name_of_thebranches} : shows the head of the branche hash
+
+CH 6 Merge
+
+1. git log --oneline --graph --all : show ASCII art representation of your commit history
+2. git merge <name of the branch> : merging a branch into the currently accessed branch / main branch, on text editor -> i = insert , :w = save , :q = exit
+3. git log --oneline --decorate --graph --parents : visual representation of the merge commit.
+4. git commit --amend -m "F: Merge branch 'add_classics'" : change commit message
+5. git branch -d add_classics : deleting a branch
+
+CH 7 Rebase
+
+1. git switch -c update_dune COMMITHASH : create and switch to a new branch called update_dune, but branch off of the {COMMITHASH} commit.
+2. git log --oneline -n 1 : shows last commit, also could be used to verify that you are right now on a branch from {Commithash} commit
+3. [inside branch commit] git rebase {main} : this will rebase or add the branch to the lates main commit without making merge commit, jadi misal main ada branch A - B - C - D and we make a branch from B called branch B, and theres 2 commit E and F, [inside branch B] git rebase main, result = A - B - C - D - E - F
+
+CH 8 Reset
+
+1. git reset --soft <hash> : if branch H - I - J, and want to undo J, use Hash of I commit but the changes still remains on staged or un staged. 
+2. git reset --hard <hash> : go back to a previous commit and discard all the changes
+
+
+CH 9 Remote
+
+1. git remote add <name> <uri> : adding remote, name = "origin" , url = path to webflyx
+2. [inside webflyx-local] git fetch : downloads copies of all the contents of the .git/objects directory (and other bookkeeping information) from the remote repository into your current one.
+3. git log origin/primeagen : this will show the log of origin repo on primeagen branch while we are on webflyx-local repo
+4. git merge origin/primeagen : merge the primeagen branch of the remote origin into your local main branch, run this inside the local repo while on the main branch
+
+CH 10 Github
+
+1. curl -sS https://webi.sh/gh | sh : install github CLI by Webi
+2. gh auth login : authenticating github from shell
+3. git ls-remote : shows where the remote is from 
+4. git push origin main : sends local changes to any "remote" - in our case, GitHub. push our local main branch's commits to the remote origin's main
+5. git push origin <localbranch>:<remotebranch> : push a local branch to a remote with a different name
+6. git push origin :<remotebranch> : delete a remote branch by pushing an empty branch to it
+7. git pull [<remote>/<branch>] : {git pull origin main} pulling the main branch from the remote repo "Github" and then merging it with local current repo "webflyx"
+8. git config pull.rebase false : config for a pull so that to make sure git will merge on a pull
+
+CH 11 Gitignore
+
+1. {gitignore pattern} *.txt : ignore all .txt files {order of patterns in a .gitignore file determines their effect}
+2. {gitignore pattern} /main.py : (Patterns starting with a / are anchored to the directory containing the .gitignore file) this would ignore a main.py in the root directory, but not in any subdirectories {order of patterns in a .gitignore file determines their effect}
+3. {gitignore pattern} *.txt {enter/newline} !important.txt  : negate a pattern by prefixing it with an exclamation mark (!) => ignore all .txt files except for important.txt {order of patterns in a .gitignore file determines their effect}
+4. [on gitignore file] # : making a comment on gitignore file
+5. brew install pandoc : instaling pandoc
+6. pandoc advert.md -o advert.html : generate an HTML document (webpage) from the Markdown file
+7. open advert.html : open the html file on a browser
+9. [inside .gitignore] : git will ignore everything listed on this file when adding to a stage, commit, or push commit
+10. git rm --cached advert.html : Remove the file advert.html from Git's index (staging area) so it will Removes the file from the repository in the next commit, but keep it on disk. 
