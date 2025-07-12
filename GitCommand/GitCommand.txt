@@ -4,19 +4,14 @@ List of Git Command
 
 CH 1 Setup
 
-1. curl -sS https://webi.sh/golang | sh : Instaling Go from Webi
-2. go install github.com/bootdotdev/bootdev@latest : Instaling bootdev using go
-3. bootdev login : login to your bootdev account
-4. bootdev run <id> : run the commands and show you the results. It's to be used for debugging, but it won't tell you whether or not you've passed the tests explicitly.
-5. bootdev run <id> -s : run the commands and give you pass/fail feedback. It will also mark the lesson as complete on the website.
-6. brew install git : Instaling git using brew
-7. git --version : check the version of git & checking if git is already installed
-8. man git : manual for git
-9. git config --add --global user.name "github_username_here" : set git username , and add .gitconfig to home dir if there arent any
-10. git config --add --global user.email "email@example.com" : set git  user email, and add .gitconfig to home dir if there arent any
-11. git config --get user.name : shows git username
-12. git config --get user.name : shows git user email
-13. git config --global init.defaultBranch master : set a default branch to master
+1. brew install git : Instaling git using brew
+2. git --version : check the version of git & checking if git is already installed
+3. man git : manual for git
+4. git config --add --global user.name "github_username_here" : set git username , and add .gitconfig to home dir if there arent any
+5. git config --add --global user.email "email@example.com" : set git  user email, and add .gitconfig to home dir if there arent any
+6. git config --get user.name : shows git username
+7. git config --get user.name : shows git user email
+8. git config --global init.defaultBranch master : set a default branch to master
 
 
 CH 2 Respository
